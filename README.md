@@ -14,7 +14,8 @@ The segmentation points in this step are:
 | 5-6 | 183 | 256 |
 | 7-8 | 246 | 324 |
 
-The following command is used to extract a fragment structure corresponding to the fragment starting with *start_res* and ends with *end_res* in the *source* structure (i.e. the template). For example, extracting the first fragment from structure X.pdb would use the following command:
+The following command is used to extract a fragment structure corresponding to the fragment starting with *start_res* and ends with *end_res* in the *source* structure (i.e. the template). This command should be used for each protein in the family for each of the segments.  
+For example, extracting the first fragment from structure X.pdb would use the following command:
 ```bash 
 ROSETTA_SCRIPTS @backbone_database/flags_cod -s X.pdb -out:path:pdb  -out:path:score scores pdbs -parser:protocol backbone_database/cut_out_domain.xml -parser:script_vars source=data/3w24_template.pdb.gz start_res=19 end_res=47 
 ```
