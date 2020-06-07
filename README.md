@@ -46,3 +46,10 @@ The following command extracts a sub-PSSM, matching a fragment of the protein:
 ./pssm/cut_pssm_for_fragment.py data/fbm_blade1_4pud.pdb data/4pud.pssm
 ```
 The output pssm is *fbm_blade1_4pud.pssm*.  
+## 4 Torsion database
+First we need to create to the following directories to hold the output: 
+```mkdir pdbs scores  db```
+The following command should be applied to each of the refined structuers from step 2.2. example on the 4pud structure:
+```bach
+ROSETTA_SCRIPTS @torsions_database/flags -out:prefix 4pudA_ -out:path:pdb pdbs -out:path:score scores -parser:script_vars source=data/fbm_blade1_4pud.pdb db=db/blade1_4pudA.db
+```
