@@ -51,7 +51,7 @@ The output pssm is *fbm_blade1_4pud.pssm*.
 This step extract the torsion angles from each of the fragment. Before running the command, we have to prepare a few files:
   1. **Directories**:  we need to create to the following directories to hold the output: ```mkdir pdbs scores  db```
   2. **Structures names**: rename the structures of the fragments to include only the pdbID, e.g.: 4pud.pdb or 4pud.pdb.gz
-  3. **pdb_profile_match**: a file mapping names of pdbs (see (details)[https://www.rosettacommons.org/docs/latest/scripting_documentation/RosettaScripts/Movers/SpliceOut]). See example at *torsions_database/pdb_profile_match*
+  3. **pdb_profile_match**: a file mapping names of pdbs (see [details](https://www.rosettacommons.org/docs/latest/scripting_documentation/RosettaScripts/Movers/SpliceOut)). See example at *torsions_database/pdb_profile_match*
   4. **flags_pssm**: mapping pdb fragments to their PSSM files. See fomat at *torsions_database/flags_pssm*
   5. **flags**: When running with a different protein family, change the path to the appropriate template structure, the catalytic residues to keep conformation and all other paths to the correct ones. 
   6. **splice_out_cat_res.xml**: When running with a different protein family, change the segments section of the Splice mover to mach your naming and segmentation scheme. The frm1 & frm2 tags corresponds to the start and end of the protein, respectively, which are kept constant in all designs (i.e. residues before and after the first and last segment)
