@@ -60,3 +60,5 @@ To generate the torsion database file for 4pud.pdb (i.e. the fragment's structur
 ```bash
 ROSETTA_SCRIPTS @torsions_database/flags -out:prefix 4pud_ -parser:script_vars source=torsions_database/4pud.pdb db=db/blade1_4pud.db start_res=20 end_res=44 current_segment=blade1
 ```
+The torsion angles of the fragment will begenerated at *db/blade1_4pud.db*. The fragment in the contex of the template is located at *pdbs/4pud_3w24_template.pdb.gz* (not needed for later steps, but useful for debugging). 
+## 5 Assembly of backbones
