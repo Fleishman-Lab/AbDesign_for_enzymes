@@ -1,0 +1,24 @@
+-pdb_gz 
+-nodelay 
+-use_input_sc 
+-extrachi_cutoff 8
+-ignore_unrecognized_res 
+-chemical:exclude_patches LowerDNA UpperDNA Cterm_amidation SpecialRotamer VirtualBB ShoveBB VirtualDNAPhosphate VirtualNTerm CTermConnect sc_orbitals pro_hydroxylated_case1 pro_hydroxylated_case2 ser_phosphorylated thr_phosphorylated tyr_phosphorylated tyr_sulfated lys_dimethylated lys_monomethylated lys_trimethylated lys_acetylated glu_carboxylated cys_acetylated tyr_diiodinated N_acetylated C_methylamidated MethylatedProteinCterm
+-jd2:ntrials 1
+-overwrite 
+-out:file:fullatom 
+-no_nstruct_label 
+-use_occurrence_data 0
+-pdb_comments true
+-mute all
+
+@torsions_database/flags_pssm
+-out:path:pdb pdbs 
+-out:path:score scores
+-s template_data/3w24_template.pdb.gz
+-unboundrot template_data/3w24_template.pdb.gz
+-in:file:native template_data/3w24_template.pdb.gz
+-parser:protocol torsions_database/splice_out.xml
+-parser:script_vars template_pdb=template_data/3w24_template.pdb.gz
+-parser:script_vars pdb_profile_match=torsions_database/pdb_profile_match
+-parser:script_vars template_catres=85,146,223,251
