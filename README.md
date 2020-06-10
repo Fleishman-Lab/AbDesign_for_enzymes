@@ -71,5 +71,5 @@ Here we will generate new backbone by combining different fragments. Input files
   
   Example comand to generate a new backnbone (change the pdbID in the entries to generate a backbone from different fragments):
   ```bash
-ROSETTA_SCRIPTS @backbone_assembly/flags -s template_data/3w24_template.pdb.gz -parser:script_vars entry_blade1=4pud entry_blade2_4=4qdmB entry_blade5_6=1xyzA entry_blade7_8=1e5nB
+ROSETTA_SCRIPTS @backbone_assembly/flags -s template_data/3w24_template.pdb.gz -out:prefix 4pud_4qdmB_1xyzA_1e5nB_ -parser:script_vars entry_blade1=4pud entry_blade2_4=4qdmB entry_blade5_6=1xyzA entry_blade7_8=1e5nB
 ```
