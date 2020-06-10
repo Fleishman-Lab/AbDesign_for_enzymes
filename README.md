@@ -1,4 +1,4 @@
-# AbDesing_for_enzymes
+# AbDesing for enzymes
 Scripts and data to run AbDesign as described in Tools for protein science 2020.   
 Below I'll describe the different steps, data needed and example command lines to genearte a repertoire of structures for the GH10 xylanase family. Steps 2-4 are using pdbID: 4pud as an example, but should be repeated for each of the structures of the chosen protein family.
 To run the following, you are required to install:
@@ -54,7 +54,7 @@ This step extract the torsion angles from each of the fragment. Before running t
   3. **pdb_profile_match**: a file mapping names of pdbs (see [details](https://www.rosettacommons.org/docs/latest/scripting_documentation/RosettaScripts/Movers/SpliceOut)). See example at *torsions_database/pdb_profile_match*
   4. **flags_pssm**: mapping pdb fragments to their PSSM files. See fomat at *torsions_database/flags_pssm*
   5. **flags**: When running with a different protein family, change the path to the appropriate template structure, the catalytic residues to keep conformation and all other paths to the correct ones. 
-  6. **splice_out_cat_res.xml**: When running with a different protein family, change the segments section of the Splice mover to mach your naming and segmentation scheme. The frm1 & frm2 tags corresponds to the start and end of the protein, respectively, which are kept constant in all designs (i.e. residues before and after the first and last segment)
+  6. **splice_out.xml**: When running with a different protein family, change the segments section of the Splice mover to mach your naming and segmentation scheme. The frm1 & frm2 tags corresponds to the start and end of the protein, respectively, which are kept constant in all designs (i.e. residues before and after the first and last segment)
 
 To generate the torsion database file for 4pud.pdb (i.e. the fragment's structure from step 2.2) use:
 ```bash
@@ -62,3 +62,14 @@ ROSETTA_SCRIPTS @torsions_database/flags -out:prefix 4pud_ -parser:script_vars s
 ```
 The torsion angles of the fragment will begenerated at *db/blade1_4pud.db*. The fragment in the contex of the template is located at *pdbs/4pud_3w24_template.pdb.gz* (not needed for later steps, but useful for debugging). 
 ## 5 Assembly of backbones
+Here we will generate new backbone by combining different fragments. Input files to prepare:
+  1. **Directories**:  we need to create to the following directories to hold the output: ```mkdir pdbs scores```
+  2. **pdb_profile_match & flags_pssm**: as previous step
+  3. **flags**: as before, change paths if using a different falily
+  4. **Torsion database**: for each segment, combine all torsions calculated in the previous step to a single file, each line is the torsion of a single fragment of this segment. For example see: *backbone_assembly/blade1.db*
+  5. **splice_in.xml**: When running with a different protein family, change the segments section of the Splice mover to mach your naming and segmentation scheme. The frm1 & frm2 tags corresponds to the start and end of the protein, respectively, which are kept constant in all designs (i.e. residues before and after the first and last segment)
+  
+  Example comand to generate a new backnbone (change the pdbID in the entries to generate a backbone from different fragments):
+  ```bash
+ROSETTA_SCRIPTS @backbone_assembly/flags -s template_data/3w24_template.pdb.gz -parser:script_vars entry_blade1=4pud entry_blade2_4=4qdmB entry_blade5_6=1xyzA entry_blade7_8=1e5nB
+```
