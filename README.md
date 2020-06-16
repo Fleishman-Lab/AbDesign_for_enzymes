@@ -31,7 +31,7 @@ For example, extracting the first fragment from structure 4pud.pdb would use the
 ```bash 
 ROSETTA_SCRIPTS @backbone_database/flags_cod -s backbone_database/4pud.pdb -out:prefix blade1_  -parser:protocol backbone_database/cut_out_domain.xml -parser:script_vars source=template_data/3w24_template.pdb.gz start_res=19 end_res=47
 ```
-The output pdb of the fragment will be located at: pdbs/4pud.pdb.gz (you need to create the pdbs folder before running the command).  
+The output pdb of the fragment will be located at: pdbs/blade1_4pud.pdb.gz (you need to create the pdbs folder before running the command).  
 ### 3.2 Refinmenet of fragment alignment to template
 In this step, fragments from the same segment are refined according to the template structure, such that they all have the exact same ends of the fragment to better assemble later (details in the paper).
 In this step the template's fragments start & end at the following positions: (in different systems, make sure the fragments do not overlap)
