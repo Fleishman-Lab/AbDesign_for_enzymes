@@ -1,0 +1,59 @@
+<ROSETTASCRIPTS>
+  <SCOREFXNS>
+    <ScoreFunction name="ref_full" weights="ref2015">
+      <Reweight scoretype="coordinate_constraint" weight="0.1"/>
+    </ScoreFunction>
+    <ScoreFunction name="soft_rep_full" weights="ref2015_soft">
+      <Reweight scoretype="coordinate_constraint" weight="0.1"/>
+    </ScoreFunction>
+    <ScoreFunction name="ref_pure" weights="ref2015"/>
+  </SCOREFXNS>
+  
+  <RESIDUE_SELECTORS>
+  </RESIDUE_SELECTORS>
+  
+  <TASKOPERATIONS>
+        <InitializeFromCommandline name="init"/>
+        <RestrictToRepacking name="rtr"/>
+  </TASKOPERATIONS>
+  
+  <MOVERS>
+    <Idealize name="idealize"/>
+    <PackRotamersMover name="soft_repack" scorefxn="soft_rep_full" task_operations="init,rtr"/>
+    <PackRotamersMover name="hard_repack" scorefxn="ref_full" task_operations="init,rtr"/>
+    <RotamerTrialsMinMover name="RTmin" scorefxn="ref_full" task_operations="init,rtr"/>
+    <TaskAwareMinMover name="soft_min" scorefxn="soft_rep_full" chi="1" bb="1" jump="0" task_operations="init"/>
+    <TaskAwareMinMover name="hard_min" scorefxn="ref_full" chi="1" bb="1" jump="0" task_operations="init"/>
+    <AtomCoordinateCstMover name="add_CA_cst"/>
+    <ParsedProtocol name="refinement_block"> 
+      <Add mover_name="soft_repack"/>
+      <Add mover_name="soft_min"/> 
+      <Add mover_name="soft_repack"/>
+      <Add mover_name="hard_min"/> 
+      <Add mover_name="hard_repack"/>
+      <Add mover_name="hard_min"/>
+      <Add mover_name="hard_repack"/>
+      <Add mover_name="RTmin"/>
+      <Add mover_name="RTmin"/>
+      <Add mover_name="hard_min"/> 
+    </ParsedProtocol>
+    <LoopOver name="iter4" mover_name="refinement_block" iterations="4"/> 
+  </MOVERS>
+  <FILTERS>
+    <ScoreType name="stability_score_full" scorefxn="ref_full" score_type="total_score" confidence="0" threshold="0"/>
+    <ScoreType name="stability_pure" scorefxn="ref_pure" score_type="total_score" confidence="0" threshold="0"/>
+    <Rmsd name="rmsd" confidence="0"/>
+    <Time name="timer"/>
+  </FILTERS>
+  <PROTOCOLS>
+    <Add filter_name="timer"/>
+    <Add mover_name="add_CA_cst"/>
+    <Add mover_name="idealize"/>
+    <Add mover_name="iter4"/>
+    <Add filter_name="stability_score_full"/>
+    <Add filter_name="stability_pure"/>
+    <Add filter_name="rmsd"/>
+    <Add filter_name="timer"/>
+  </PROTOCOLS>
+  <OUTPUT scorefxn="ref_full"/>
+</ROSETTASCRIPTS>
