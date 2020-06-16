@@ -10,7 +10,7 @@
 -no_nstruct_label 
 -use_occurrence_data 0
 -pdb_comments true
--mute all
+#-mute all
 
 @torsions_database/flags_pssm
 -out:path:pdb pdbs 

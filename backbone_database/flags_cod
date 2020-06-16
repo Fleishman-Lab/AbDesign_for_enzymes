@@ -6,5 +6,5 @@
 -overwrite 
 -out:file:fullatom 
 -out:path:pdb pdbs/
--mute all
+#-mute all
 -no_nstruct_label true
