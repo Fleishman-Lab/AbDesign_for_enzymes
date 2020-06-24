@@ -1,4 +1,4 @@
-# AbDesing for enzymes
+# AbDesign for enzymes
 Scripts and data to run AbDesign as described in Tools for protein science 2020.   
 Below I'll describe the different steps, data needed and example command lines to genearte a repertoire of structures for the GH10 xylanase family. Steps 2-4 are using pdbID: 4pud as an example, but should be repeated for each of the structures of the chosen protein family.
 To run the following, you are required to install:
