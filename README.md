@@ -65,7 +65,17 @@ This step extracts the torsion angles from each of the fragment. Before running 
   3. **pdb_profile_match**: a file mapping names of pdbs. See example at *torsions_database/pdb_profile_match*
   4. **flags_pssm**: mapping pdb fragments to their PSSM files. See the format at *torsions_database/flags_pssm*
   5. **flags**: When running with a different protein family, change the path to the appropriate template structure, the catalytic residues to keep conformation and all other paths to the correct ones. 
-  6. **splice_out.xml**: When running with a different protein family, change the segments section of the Splice mover to match your naming and segmentation scheme. The frm1 & frm2 tags correspond to the start and end of the protein, respectively, which are kept constant in all designs (i.e. residues before and after the first and last segment)  
+  6. **splice_out.xml**: When running with a different protein family, change the segments section of the Splice mover to match your naming and segmentation scheme. The frm1 & frm2 tags correspond to the start and end of the protein, respectively, which are kept constant in all designs (i.e. residues before and after the first and last segment) 
+  7. **template pdb file**: The splice mover in Rosetta writes to the PDB file the source pdb of the different segment. The input template structure should have at the bottom of the file the following lines (should correspond to the segments section in the xml file, see 6 above):   
+     ```
+     ##Begin comments##   
+     segment_frm1 3w24_template   
+     segment_blade1 3w24_template   
+     segment_blade2_4 3w24_template      
+     segment_blade5_6 3w24_template   
+     segment_blade7_8 3w24_template   
+     segment_frm2 3w24_template   
+     ##End comments##  
   
 *Segmentation point selection*: The segmentation points here are **one residue into the segment** relative to step 3.2.
 | Segment | start | end |
@@ -91,6 +101,7 @@ Here we will generate a new backbone by combining different fragments. Input fil
   3. **flags**: as before, change paths if using a different family
   4. **Torsion database**: for each segment, combine all torsions calculated in the previous step to a single file, each line is the torsion of a single fragment of this segment. For example see: *backbone_assembly/blade1.db*
   5. **splice_in.xml**: When running with a different protein family, change the segments section of the Splice mover to match your naming and segmentation scheme. The frm1 & frm2 tags correspond to the start and end of the protein, respectively, which are kept constant in all designs (i.e. residues before and after the first and last segment)
+  6. **template pdb file**: see above at *Torsion database*
   
   Example command to generate a new backbone (change the pdbID in the entries to generate a backbone from different fragments):
   ```bash
