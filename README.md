@@ -20,7 +20,7 @@ The idealized version is ideal_4pud.pdb.gz.
 ### 3.1 Initial crude fragment extraction
 *Segmentation point selection*: After we define the segmentation scheme in step 1, here we start by a rough segmentation (to be further refined in following steps). Say we want a segment starting at residue X and ending at residues Y, we will start from X-3 and Y+3.   
 
-The segmentation points in this step are (numbering corrspond to template structure pdbID: 3w24):
+The segmentation points in this step are (numbering corresponds to template structure pdbID: 3w24):
 | Segment | start | end |
 | :---: | :---: | :---: |
 | 1 | 19 | 47 |
@@ -37,7 +37,7 @@ The output pdb of the fragment will be located at: pdbs/blade1_4pud.pdb.gz (you 
 ### 3.2 Refinement of fragment alignment to template
 In this step, fragments from the same segment are refined according to the template structure, such that they all have the exact same ends of the fragment to better assemble later (details in the paper).  
   
-*Segmentation point selection*: Here we are using the exact residues for the start and end of the segment. Make sure the segments are not overlapping (e.g. asegment cannot start at residue 47 if the previous one ended at 48).  
+*Segmentation point selection*: Here we are using the exact residues for the start and end of the segment. Make sure the segments are not overlapping (e.g. a segment cannot start at residue 47 if the previous one ended at 48).  
 In this step the template's fragments start & end at the following positions: 
 | Segment | start | end |
 | :---: | :---: | :---: |
@@ -81,7 +81,7 @@ ROSETTA_SCRIPTS @torsions_database/flags -out:prefix 4pud_ -parser:script_vars s
 ```
 The torsion angles of the fragment will be generated at *db/blade1_4pud.db*. The fragment in the context of the template is located at *pdbs/4pud_3w24_template.pdb.gz* (not needed for later steps, but useful for debugging).   
 
-For further explenations please [see](https://www.rosettacommons.org/docs/latest/scripting_documentation/RosettaScripts/Movers/SpliceOut).
+For further explanations please [see](https://www.rosettacommons.org/docs/latest/scripting_documentation/RosettaScripts/Movers/SpliceOut).
 
 
 ## 6 Assembly of backbones
@@ -92,7 +92,7 @@ Here we will generate a new backbone by combining different fragments. Input fil
   4. **Torsion database**: for each segment, combine all torsions calculated in the previous step to a single file, each line is the torsion of a single fragment of this segment. For example see: *backbone_assembly/blade1.db*
   5. **splice_in.xml**: When running with a different protein family, change the segments section of the Splice mover to match your naming and segmentation scheme. The frm1 & frm2 tags correspond to the start and end of the protein, respectively, which are kept constant in all designs (i.e. residues before and after the first and last segment)
   
-  Example comand to generate a new backnbone (change the pdbID in the entries to generate a backbone from different fragments):
+  Example command to generate a new backbone (change the pdbID in the entries to generate a backbone from different fragments):
   ```bash
 ROSETTA_SCRIPTS @backbone_assembly/flags -s template_data/3w24_template.pdb.gz -out:prefix 4pud_4qdmB_1xyzA_1e5nB_ -parser:script_vars entry_blade1=4pud entry_blade2_4=4qdmB entry_blade5_6=1xyzA entry_blade7_8=1e5nB
 ```
