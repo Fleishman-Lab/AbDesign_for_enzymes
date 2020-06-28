@@ -41,12 +41,12 @@
 
         <SpliceOut name="spliceout" source_pdb="%%source%%" scorefxn="ref15" torsion_database="%%db%%" randomize_cut="1" cut_secondarystruc="0" from_res="%%start_res%%" to_res="%%end_res%%" rms_cutoff="0.2" design_shell="0"  splice_filter="chainbreak_val" template_file="%%template_pdb%%" task_operations="init,seqprofcons,no_repack_cat_res" thread_original_sequence="0" CG_const="0" ignore_chain_break="0"  mover="ccd" debug="0" superimposed="1">
             <Segments current_segment="%%current_segment%%">
-                <Segment name="frm1" pdb_profile_match="%%pdb_profile_match%%" profiles="3w24_template:/home/labs/fleishman/rosaliel/xylanase/round4/second_time/splice_out/frm1.pssm"/>
+                <Segment name="frm1" pdb_profile_match="%%pdb_profile_match%%" profiles="3w24_template:template_data/frm1.pssm"/>
                 <Segment name="blade1" pdb_profile_match="%%pdb_profile_match%%" profiles="%%blade1%%"/>
                 <Segment name="blade2_4" pdb_profile_match="%%pdb_profile_match%%" profiles="%%blade2_4%%"/>
                 <Segment name="blade5_6" pdb_profile_match="%%pdb_profile_match%%" profiles="%%blade5_6%%"/> 
                 <Segment name="blade7_8" pdb_profile_match="%%pdb_profile_match%%" profiles="%%blade7_8%%"/> 
-                <Segment name="frm2" pdb_profile_match="%%pdb_profile_match%%" profiles="3w24_template:/home/labs/fleishman/rosaliel/xylanase/round4/second_time/splice_out/frm2.pssm"/>		 
+                <Segment name="frm2" pdb_profile_match="%%pdb_profile_match%%" profiles="3w24_template:template_data/frm2.pssm"/>		 
             </Segments> 
         </SpliceOut>
  
