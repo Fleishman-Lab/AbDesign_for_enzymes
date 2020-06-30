@@ -91,7 +91,25 @@ ROSETTA_SCRIPTS @torsions_database/flags -out:prefix 4pud_ -parser:script_vars s
 ```
 The torsion angles of the fragment will be generated at *db/blade1_4pud.db*. The fragment in the context of the template is located at *pdbs/4pud_3w24_template.pdb.gz* (not needed for later steps, but useful for debugging).   
 
-For further explanations please [see](https://www.rosettacommons.org/docs/latest/scripting_documentation/RosettaScripts/Movers/SpliceOut).
+For further explanations please [see](https://www.rosettacommons.org/docs/latest/scripting_documentation/RosettaScripts/Movers/SpliceOut).  
+
+### 5.1 Torsion database for N/C-termini regions
+The above working scheme works great in case there is no important information encoded in the tail regions of the protein. In case these regions are needed (i.e starting from residue 19 is not an option for you), slight adjustments are needed.   
+  1. Skip steps 3.1 and 3.2. Instead, cut manually the N/C-terminus regions needed out of an idealized pdb (step 2). Use segmentation points as described in step 3.2. See an example of a full-size tail at backbone_tails/4pud.pdb.
+  2. Follow step 4 to extract a sub PSSM for the tail region. 
+  3. **As in step 5**: create **Directories**, rename **Structures names**, prepare **pdb_profile_match** file and a **flags_pssm file**. Make sure all paths in **flags** file point to the appropriate directories.
+  4. **splice_out_Ntail.xml**: change the segments section of the SpliceOutTail mover to match your naming and segmentation scheme. As opposed to step 5.0, frm1 and/or frm2 tags are not needed, as there are no “left behind” residues at the tails. “splice_out_Ntail.xml” is adjusted for an N-terminus tail. For a C-terminus, change the tail_segment="n" to tail_segment="c".  
+  5. **template pdb file**: as in step 5.0, the input template structure should include a “comment” section at the bottom. Make sure to remove “frm1” and/or “frm2” as the current segmentation requires. 
+
+An example of a command line:   
+```
+ROSETTA_SCRIPTS @backbone_tails/flags -out:prefix 4pud_ -parser:script_vars source=backbone_tails/4pud.pdb db=db/blade1_4pud.db current_segment=blade1 from_res=44
+```
+
+“from_res” is used both in N-and in C-terminus cases to indicate the single defined segmentation point. 
+
+As before, the torsion angles of the fragment will be generated at db/blade1_4pud.db 
+The last three digits every line in the database indicate the segmentation points chosen. In case of an N-terminus tail, change the third digit from the end, to the desired segmentation residue number. (Due to a bug, the default output is 1). I.e, “... 188 130.796 175.255 SER 1 0 0 4pud”, should become “...188 130.796 175.255 SER 44 0 0 4pud”. There is no need for such an adjustment in the case of a C-terminus tail.  
 
 
 ## 6 Assembly of backbones
@@ -107,3 +125,16 @@ Here we will generate a new backbone by combining different fragments. Input fil
   ```bash
 ROSETTA_SCRIPTS @backbone_assembly/flags -s template_data/3w24_template.pdb.gz -out:prefix 4pud_4qdmB_1xyzA_1e5nB_ -parser:script_vars entry_blade1=4pud entry_blade2_4=4qdmB entry_blade5_6=1xyzA entry_blade7_8=1e5nB
 ```
+### 6.1 Assembly of backbones that include N/C-termini regions
+Follow the instructions as written in step 6.0. The only adjustment needed is in the .xml file where a SpliceIn mover needs to be changed to SpliceInTail. An example can be seen at backbone_tails/backbone_assembly/splice_inTail.xml
+
+Command line to run spiceInTail: 
+  ```bash
+ROSETTA_SCRIPTS @backbone_tails/backbone_assembly/flags -s backbone_tails/3w24_template.pdb.gz -out:prefix 4pud_4qdmB_1xyzA_1e5nB_ -parser:script_vars entry_blade1=4pud entry_blade2_4=4qdmB entry_blade5_6=1xyzA entry_blade7_8=1e5nB 
+```
+
+## 7. Frequent debugging issues
+  1. Misalignment of segments (overlaps, or discontinues backbone formation). 
+  2. The *comments* section in the template pdb do not match the segments section in the .xml file.
+  3. *flags_pssm* file includes a newline or a whitespace. Make sure to include full paths to pssm files.
+  4. There is a difference in capitalization of the “Segment” section between spliceOut and SpliceIn movers. See example torsions_database/splice_out.xml vs. backbone_assembly/splice_in.xml    
