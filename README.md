@@ -11,7 +11,12 @@ The list of xylanase structures was taken from [here](http://www.cazy.org/GH10_s
 ```bash
 ./utils/get_pdb.py 3w24 4pud #space separated list of pdb IDs 
 ```
-All structures must be aligned to the template structure, which can be done using the **alignto** command in PyMOL.
+All structures must be aligned to the template structure, which can be done using the **alignto** command in PyMOL. Then, the segmentation points should be selected.   
+A few suggestions for selecting segmentation points:
+   1. different segments should correspond to modular fragments- in TIM-barrel for example it would be different beta-alpha blades 
+   2. the cut points should be perfectly aligned among **all** fragments in order to generate continuous backbones
+   3. If two segments have many interaction among them, consider combining them into a single larger segment
+   4. A large segment could be breaken up into two smaller ones in order to generate more possible diversity
 
 ## 2 Structures idealization
 To generate an idealized version of a protein structure, use (change the *-s* path to your structure):
