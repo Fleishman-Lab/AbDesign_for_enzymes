@@ -7,7 +7,11 @@ To run the following, you are required to install:
   * PyMOL 
 
 ## 1 Structures and Segmentation scheme
-The list of xylanase structures was taken from [here](http://www.cazy.org/GH10_structure.html) and downloaded from the PDB. All structures must be aligned to the template structure, which can be done using the **alignto** command in PyMOL.
+The list of xylanase structures was taken from [here](http://www.cazy.org/GH10_structure.html). The structures could be downloaded using the following command:   
+```bash
+./utils/get_pdb.py 3w24 4pud #space separated list of pdb IDs 
+```
+All structures must be aligned to the template structure, which can be done using the **alignto** command in PyMOL.
 
 ## 2 Structures idealization
 To generate an idealized version of a protein structure, use (change the *-s* path to your structure):
