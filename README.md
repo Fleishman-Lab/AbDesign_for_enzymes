@@ -147,3 +147,5 @@ ROSETTA_SCRIPTS @backbone_tails/backbone_assembly/flags -s backbone_tails/3w24_t
   2. The *comments* section in the template pdb do not match the segments section in the .xml file.
   3. *flags_pssm* file includes a newline or a whitespace. Make sure to include full paths to pssm files.
   4. There is a difference in capitalization of the “Segment” section between spliceOut and SpliceIn movers. See example torsions_database/splice_out.xml vs. backbone_assembly/splice_in.xml    
+  
+  For any bugs/questions please write to: rosalie.lipsh@weizmann.ac.il
