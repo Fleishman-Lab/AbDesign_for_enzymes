@@ -9,7 +9,6 @@ import os
 import logging
 import argparse
 import sys
-from flab.utils.parse_actions import FullPaths, FullPathsList
 
 
 __author__ = 'Gideon Lapidoth'
